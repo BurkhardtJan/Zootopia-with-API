@@ -35,5 +35,5 @@ def fetch_data(animal_name):
         "X-Api-Key": API_KEY
     }
     response = requests.get(REQUEST_URL, params=data)
-    print(response.status_code)
+    #print(response.status_code)
     return response.json()
