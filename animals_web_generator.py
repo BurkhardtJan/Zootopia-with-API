@@ -83,8 +83,8 @@ def fetch_animals(animal):
     return response.json()
 
 
-# animals_data = load_data('animals_data.json')
-animals_data = fetch_animals("Fox")
+animal = input("Enter a name of an animal:")
+animals_data = fetch_animals(animal)
 
 selected_aimals = ask_skin_type(animals_data)
 
@@ -102,3 +102,4 @@ html_with_animals = template.replace("__REPLACE_ANIMALS_INFO__", output)
 # Write Output
 with open("animals.html", "w") as website:
     website.write(html_with_animals)
+print("Website was successfully generated to the file animals.html.")
