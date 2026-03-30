@@ -85,14 +85,15 @@ def fetch_animals(animal):
 
 animal = input("Enter a name of an animal:")
 animals_data = fetch_animals(animal)
-
-selected_aimals = ask_skin_type(animals_data)
-
-# Write Cards
-output = ''
-for animal_data in animals_data:
-    if animal_data["name"] in selected_aimals:
-        output += serialize_animal(animals_data)
+if len(animals_data) == 0:
+    output = f'<h2>The animal "{animal}" doesn\'t exist.</h2>'
+else:
+    selected_aimals = ask_skin_type(animals_data)
+    # Write Cards
+    output = ''
+    for animal_data in animals_data:
+        if animal_data["name"] in selected_aimals:
+            output += serialize_animal(animals_data)
 
 # Open Template and insert Cards
 with open("animals_template.html", "r") as website:
