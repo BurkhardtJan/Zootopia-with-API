@@ -1,7 +1,9 @@
 import json
 import requests
-
-API_KEY = "YdIUWk9qyFMjzC5scsFWm5eUHJhA4HxeSX0qjIVO"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
 
 
 def load_data(file_path):
