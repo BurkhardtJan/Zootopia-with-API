@@ -1,6 +1,3 @@
-import data_fetcher
-
-
 def ask_skin_type(animals_data):
     """ Asks user for skin type and returns list of all animals with it"""
     skintype_list = []
@@ -43,7 +40,7 @@ def ask_skin_type(animals_data):
         return selected_skin_namelist
 
 
-def serialize_animal(animal_obj):
+def serialize_animal(animal_data):
     """ Returns HTML Card output for single Animal"""
     output = ''
     output += '<li class="cards__item">'
@@ -62,26 +59,3 @@ def serialize_animal(animal_obj):
     output += '</p>'
     output += '</li>'
     return output
-
-
-animal = input("Enter a name of an animal:")
-animals_data = data_fetcher.fetch_data(animal)
-if len(animals_data) == 0:
-    output = f'<h2>The animal "{animal}" doesn\'t exist.</h2>'
-else:
-    selected_aimals = ask_skin_type(animals_data)
-    # Write Cards
-    output = ''
-    for animal_data in animals_data:
-        if animal_data["name"] in selected_aimals:
-            output += serialize_animal(animals_data)
-
-# Open Template and insert Cards
-with open("animals_template.html", "r") as website:
-    template = website.read()
-html_with_animals = template.replace("__REPLACE_ANIMALS_INFO__", output)
-
-# Write Output
-with open("animals.html", "w") as website:
-    website.write(html_with_animals)
-print("Website was successfully generated to the file animals.html.")
