@@ -1,4 +1,5 @@
 import json
+import requests
 
 
 def load_data(file_path):
@@ -25,12 +26,12 @@ def ask_skin_type(animals_data):
     print("Press corresponding number to select a Skin-Type.")
     print("Press anything else for all Skin-Types.")
     for i in range(len(skintype_list)):
-        print(f"{i+1}: {skintype_list[i]}")
+        print(f"{i + 1}: {skintype_list[i]}")
     selection = input()
     try:
         if int(selection) > 0:
-            selected_skin = skintype_list[int(selection)-1]
-            print(f"You selected {selection}: {skintype_list[int(selection)-1]}")
+            selected_skin = skintype_list[int(selection) - 1]
+            print(f"You selected {selection}: {skintype_list[int(selection) - 1]}")
             for name, skin in skin_dict.items():
                 if skin == selected_skin:
                     selected_skin_namelist.append(name)
@@ -70,7 +71,20 @@ def serialize_animal(animal_obj):
     return output
 
 
-animals_data = load_data('animals_data.json')
+def fetch_animals(animal):
+    """ Fetch animals data from API"""
+    REQUEST_URL = "https://api.api-ninjas.com/v1/animals"
+    data = {
+        "name": animal,
+        "X-Api-Key": "YdIUWk9qyFMjzC5scsFWm5eUHJhA4HxeSX0qjIVO"
+    }
+    response = requests.get(REQUEST_URL, params=data)
+    print(response.status_code)
+    return response.json()
+
+
+# animals_data = load_data('animals_data.json')
+animals_data = fetch_animals("Fox")
 
 selected_aimals = ask_skin_type(animals_data)
 
