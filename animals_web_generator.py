@@ -1,11 +1,4 @@
-import json
-import requests
-
-
-def load_data(file_path):
-    """ Loads a JSON file """
-    with open(file_path, "r") as handle:
-        return json.load(handle)
+import data_fetcher
 
 
 def ask_skin_type(animals_data):
@@ -71,20 +64,8 @@ def serialize_animal(animal_obj):
     return output
 
 
-def fetch_animals(animal):
-    """ Fetch animals data from API"""
-    REQUEST_URL = "https://api.api-ninjas.com/v1/animals"
-    data = {
-        "name": animal,
-        "X-Api-Key": "YdIUWk9qyFMjzC5scsFWm5eUHJhA4HxeSX0qjIVO"
-    }
-    response = requests.get(REQUEST_URL, params=data)
-    print(response.status_code)
-    return response.json()
-
-
 animal = input("Enter a name of an animal:")
-animals_data = fetch_animals(animal)
+animals_data = data_fetcher.fetch_data(animal)
 if len(animals_data) == 0:
     output = f'<h2>The animal "{animal}" doesn\'t exist.</h2>'
 else:
